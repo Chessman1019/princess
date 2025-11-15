@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Nicol 💜</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Partículas de fondo */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+
+        /* Header */
+        header {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 60px 20px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        header h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: glow 2s ease-in-out infinite;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            animation: fadeIn 2s ease-out;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.3); }
+            50% { text-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.5); }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Container principal */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Carrusel */
+        .carousel-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .carousel-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            height: 500px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .carousel-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .carousel-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .carousel-btn:hover {
+            background: white;
+            color: #667eea;
+            transform: scale(1.1);
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: white;
+            transform: scale(1.3);
+        }
+
+        /* Sección de mensaje */
+        .message-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 50px;
+            margin-bottom: 60px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .message-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .message-section p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Sección de canciones */
+        .songs-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .songs-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .songs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .song-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            cursor: pointer;
+        }
+
+        .song-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .song-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .song-card p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Corazones flotantes */
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            animation: floatHeart 6s infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatHeart {
+            0% { 
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            header p {
+                font-size: 1.2rem;
+            }
+
+            .carousel-item {
+                height: 300px;
+            }
+
+            .carousel-section, .message-section, .songs-section {
+                padding: 30px 20px;
+            }
+
+            .message-section h2, .songs-section h2, .carousel-section h2 {
+                font-size: 2rem;
+            }
+
+            .message-section p {
+                font-size: 1.1rem;
+            }
+
+            .songs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas de fondo -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Corazones flotantes -->
+    <div class="hearts" id="hearts"></div>
+
+    <!-- Header -->
+    <header>
+        <h1>💜 NICOL 💜</h1>
+        <p>Algo especial para alguien especial</p>
+    </header>
+
+    <!-- Container principal -->
+    <div class="container">
+        <!-- Carrusel de imágenes -->
+        <div class="carousel-section">
+            <h2>🎤 Gonzalo Genek 🎤</h2>
+            <div class="carousel">
+                <div class="carousel-inner" id="carouselInner">
+                    <div class="carousel-item" style="background-image: url('https://caretas.pe/wp-content/uploads/2025/05/25-04-11-GONZALO_G1377-copia-e1747258795651.jpg')"></div>
+                    <div class="carousel-item" style="background-image: url('https://i.scdn.co/image/ab6761610000e5ebb5badd89886f9561b16edbba')"></div>
+                    <div class="carousel-item" style="background-image: url('http://peru21.pe/sites/default/efsfiles/2025-07/megaplaza.png')"></div>
+                    <div class="carousel-item" style="background-image: url('https://diariocorreo.pe/resizer/v2/QOCFWC4NJ5ENJMB2X6L72WTH54.png?auth=5b49940a3c969a743b5b06c8a4f20ff1b5d1f308adf9bae9ac22b9d8783a7333&width=1280&height=720&quality=75&smart=true')"></div>
+                    <div class="carousel-item" style="background-image: url('https://i.pinimg.com/1200x/f7/b4/13/f7b413177cc4b853fc1214d7aefa0c07.jpg')"></div>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn" onclick="prevSlide()">‹</button>
+                <button class="carousel-btn" onclick="nextSlide()">›</button>
+            </div>
+            <div class="carousel-dots" id="carouselDots"></div>
+        </div>
+
+        <!-- Mensaje especial -->
+        <div class="message-section">
+            <h2>✨ Un Mensaje Para Ti ✨</h2>
+            <p>
+                Nicol, hice esta página especial para ti porque quería mostrarte de una forma única lo especial que eres. 
+                Sé cuánto te gusta Gonzalo Genek y su música, y quería combinar eso con lo que yo sé hacer. 
+                Espero que te guste y que te saque una sonrisa. 💜
+            </p>
+        </div>
+
+        <!-- Sección de canciones -->
+        <div class="songs-section">
+            <h2>🎵 Sus Mejores Canciones 🎵</h2>
+            <div class="songs-grid">
+                <div class="song-card">
+                    <h3>🎶 💖 A Veces</h3>
+                    <p>"A Veces” expresa esos sentimientos que uno no siempre dice: extrañar, dudar y volver a sentir lo mismo por alguien especial. La canción habla de amor sincero, de querer a una persona incluso en los días difíciles y de reconocer que, al final, el corazón siempre vuelve a ella."</p>
+                </div>
+                <div class="song-card">
+                    <h3>🎶 Trato de Olvidarte</h3>
+                    <p>“Trato de Olvidarte” es una canción donde Gonzalo Genek expresa la lucha interna de querer soltar a alguien que marcó su vida. Habla del dolor de intentar olvidar, mientras los recuerdos siguen vivos y el corazón se resiste a dejar ir. Con un tono sincero y melancólico, la canción muestra que a veces olvidar no es tan fácil, porque esa persona aún significa demasiado.</p>
+                </div>
+                <div class="song-card">
+                    <h3>🎶 Como Si Fuera</h3>
+                    <p>“Como Si Fuera” es una canción que habla de vivir el amor intensamente, como si cada momento fuera único. Gonzalo Genek expresa ese sentimiento de querer a alguien con ganas, con entrega, y de disfrutar cada instante como si fuera el primero y el último. Es un tema romántico que resalta lo especial que puede ser una persona en tu vida.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Carrusel
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-item');
+        const totalSlides = slides.length;
+        const carouselInner = document.getElementById('carouselInner');
+        const dotsContainer = document.getElementById('carouselDots');
+
+        // Crear dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dot.onclick = () => goToSlide(i);
+            dotsContainer.appendChild(dot);
+        }
+
+        function updateCarousel() {
+            carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        // Auto slide
+        setInterval(nextSlide, 5000);
+
+        // Crear partículas
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Crear corazones flotantes
+        const heartsContainer = document.getElementById('hearts');
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '💜';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            heartsContainer.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }, 3000);
+
+        // Animación de entrada al hacer scroll
+        const observerOptions = {
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.song-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = 'all 0.6s ease-out';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
